@@ -18,7 +18,7 @@ export class NavigationComponent implements OnInit {
     this.authService.login(this.model).subscribe(next => {
       console.log('logged in successfully !');
     }, error => {
-      console.log('Fialed to loggin !');
+      console.log(error);
     });
   }
 
