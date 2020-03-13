@@ -10,7 +10,7 @@ import { AlertyfyjsService } from '../_services/alertyfyjs.service';
 })
 export class NavigationComponent implements OnInit {
   model: any = {};
-  constructor(private authService: AuthService, private alertify: AlertyfyjsService) { }
+  constructor(public authService: AuthService, private alertify: AlertyfyjsService) { }
 
   ngOnInit() {
   }
@@ -24,8 +24,7 @@ export class NavigationComponent implements OnInit {
   }
 
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.loggedIn();
   }
   logout() {
     localStorage.removeItem('token');
