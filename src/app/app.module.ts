@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { RoutingModule } from './routing/routing.module';
 import { JwtModule } from '@auth0/angular-jwt';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { from } from 'rxjs';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -19,6 +20,10 @@ import { MessagesComponent } from './messages/messages.component';
 import { UserService } from './_services/user.service';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { AlertyfyjsService } from './_services/alertyfyjs.service';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
+
 export function tokenGetter() {
    return localStorage.getItem('token');
 }
@@ -41,6 +46,7 @@ export function tokenGetter() {
       FormsModule,
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
+      TabsModule.forRoot(),
       JwtModule.forRoot({
          config: {
             tokenGetter: tokenGetter,
@@ -53,7 +59,11 @@ export function tokenGetter() {
    providers: [
       AuthService,
       ErrorInterceptorProvider,
-      UserService
+      UserService,
+      AlertyfyjsService,
+      MemberDetailResolver,
+      MemberListResolver,
+      {provide : LocationStrategy , useClass: HashLocationStrategy}
    ],
    bootstrap: [
       AppComponent
