@@ -14,7 +14,7 @@ export class MemberListComponent implements OnInit {
   constructor(private userService: UserService, private alertyfy: AlertyfyjsService, private router: ActivatedRoute) { }
 
   ngOnInit() {
-    this.router.data.subscribe(data =>{
+    this.router.data.subscribe(data => {
       this.users = data['users'];
     });
   }

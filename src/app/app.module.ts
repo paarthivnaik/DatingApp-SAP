@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { RoutingModule } from './routing/routing.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
+import { NgxGalleryModule } from 'ngx-gallery';
 import { from } from 'rxjs';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AuthService } from './_services/AuthService/auth.service';
@@ -27,7 +28,12 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 export function tokenGetter() {
    return localStorage.getItem('token');
 }
-
+export class CustomHammerConfig extends HammerGestureConfig  {
+   overrides = {
+       pinch: { enable: false },
+       rotate: { enable: false }
+   };
+}
 @NgModule({
    declarations: [
       AppComponent,
@@ -55,6 +61,7 @@ export function tokenGetter() {
          }
       }),
       RoutingModule,
+      NgxGalleryModule
    ],
    providers: [
       AuthService,
@@ -63,7 +70,8 @@ export function tokenGetter() {
       AlertyfyjsService,
       MemberDetailResolver,
       MemberListResolver,
-      {provide : LocationStrategy , useClass: HashLocationStrategy}
+      {provide : LocationStrategy , useClass: HashLocationStrategy},
+      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
    ],
    bootstrap: [
       AppComponent
