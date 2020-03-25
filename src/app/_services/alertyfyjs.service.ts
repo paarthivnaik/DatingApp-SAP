@@ -30,4 +30,13 @@ export class AlertyfyjsService {
   message(message: string) {
     alertify.message(message);
   }
+  confirmAlert(message: string) {
+    alertify.confirm(message,
+      function () {
+        alertify.success('Ok');
+      },
+      function () {
+        alertify.error('Cancel');
+      });
+  }
 }
