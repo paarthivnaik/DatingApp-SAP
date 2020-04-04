@@ -9,6 +9,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { FileUploadModule } from 'ng2-file-upload';
 import { from } from 'rxjs';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AuthService } from './_services/AuthService/auth.service';
@@ -27,6 +28,8 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -48,7 +51,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MessagesComponent,
       MemberCardComponent,
       MemberDetailComponent,
-      MemberEditComponent
+      MemberEditComponent,
+      PhotoEditorComponent
    ],
    imports: [
       BrowserModule,
@@ -57,6 +61,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
+      FileUploadModule,
       JwtModule.forRoot({
          config: {
             tokenGetter: tokenGetter,
