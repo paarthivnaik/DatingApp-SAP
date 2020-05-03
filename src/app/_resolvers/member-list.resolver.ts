@@ -8,17 +8,19 @@ import { catchError } from 'rxjs/operators';
 
 
 @Injectable()
-export class MemberListResolver implements Resolve<Users[]>{
+export class MemberListResolver implements Resolve<Users[]> {
+    pageNumber = 1;
+    pageSize = 5;
     constructor(private userService: UserService,
         private alertify: AlertyfyjsService, private router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Users[]> {
-return this.userService.getUsers().pipe(
-    catchError(error => {
-        this.alertify.error('Problem Retriving Data');
-        this.router.navigate(['/home']);
-        return of(null);
-    })
-);
+        return this.userService.getUsers(this.pageNumber, this.pageSize).pipe(
+            catchError(error => {
+                this.alertify.error('Problem Retriving Data');
+                this.router.navigate(['/home']);
+                return of(null);
+            })
+        );
     }
 }
